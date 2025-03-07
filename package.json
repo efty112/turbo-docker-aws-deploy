@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "test_docker_turbo_ci_cd",
   "private": true,
   "scripts": {
     "build": "turbo run build",
