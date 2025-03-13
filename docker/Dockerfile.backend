@@ -14,7 +14,9 @@ COPY ./turbo.json ./turbo.json
 COPY ./apps/http ./apps/http
 
 RUN pnpm install
-RUN cd packages/db && npx prisma generate && cd ../..
+RUN cd packages/db && npx prisma migrate dev && npx prisma generate && cd ../..
+
+RUN cd apps/http && pnpm run build && cd ../..
 
 EXPOSE 8080
 

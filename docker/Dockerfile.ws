@@ -14,7 +14,9 @@ COPY ./turbo.json ./turbo.json
 COPY ./apps/ws ./apps/ws
 
 RUN pnpm install
-RUN cd packages/db && npx prisma generate && cd ../..
+RUN cd packages/db && npx prisma migrate dev && npx prisma generate && cd ../..
+
+RUN cd apps/ws && pnpm run build && cd ../..
 
 EXPOSE 3001
 
