@@ -1,0 +1,21 @@
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+RUN npm install -g pnpm
+COPY ./packages/db ./packages/db
+COPY ./packages/eslint-config ./packages/eslint-config
+COPY ./packages/typescript-config ./packages/typescript-config
+
+COPY ./pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY ./package.json ./package.json
+COPY ./turbo.json ./turbo.json
+
+COPY ./apps/http ./apps/http
+
+RUN pnpm install
+RUN cd packages/db && npx prisma generate && cd ../..
+
+EXPOSE 8080
+
+CMD [ "pnpm", "run", "start:http" ]
