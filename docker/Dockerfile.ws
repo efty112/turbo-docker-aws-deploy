@@ -16,7 +16,7 @@ COPY ./apps/ws ./apps/ws
 RUN pnpm install
 RUN cd packages/db && npx prisma migrate dev && cd ../..
 
-RUN cd apps/ws && pnpm run build && cd ../..
+RUN pnpm run build
 
 EXPOSE 3001
 
