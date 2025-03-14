@@ -19,10 +19,13 @@ COPY ./turbo.json ./turbo.json
 COPY ./apps/web ./apps/web
 
 RUN pnpm install
-RUN cd packages/db && npx prisma generate && cd ../..
+
+RUN cd packages/db
+RUN echo "DATABASE_URL=${DATABASE_URL}" > .env && npx prisma generate && cd ../..
 
 RUN pnpm run build
 
+RUN rm -f /usr/src/app/packages/db/.env
 EXPOSE 3000
 
 CMD [ "pnpm", "run", "start:web" ]
