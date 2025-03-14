@@ -19,10 +19,9 @@ COPY ./turbo.json ./turbo.json
 COPY ./apps/web ./apps/web
 
 RUN pnpm install
-RUN cd packages/db && DATABASE_URL=${DATABASE_URL} npx prisma generate && cd ../..
+RUN cd packages/db && npx prisma generate && cd ../..
 
 RUN pnpm run build
-
 
 EXPOSE 3000
 
