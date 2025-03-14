@@ -25,8 +25,18 @@ jobs:
                 file: ./docker/Dockerfile.ws
                 push: true
                 tags: efty112/test-turbo-app-ws:${{github.sha}}
-                
-    # Code FOR Deployment:
-    # deploy:
-    #     name: Deploy the WS to AWS
-    #     runs-on: ubuntu-latest
+
+                        
+            - name: SSH into the EC2
+              uses: appleboy/ssh-action@v1.2.1
+              with:
+                host: 65.0.124.161
+                username: ubuntu
+                key: ${{ secrets.AWS_KEY }}
+                port: 22
+                script: |
+                  export PATH=/home/ubuntu/.nvm/versions/node/v22.14.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+                  sudo docker pull efty112/test-turbo-app-ws:${{github.sha}}
+                  sudo docker stop turbo_ws
+                  sudo docker run -d -e DATABASE_URL=${{secrets.DATABASE_URL}} --name turbo_ws -p 3001:3001 efty112/test-turbo-app-ws:${{github.sha}}
+                  
