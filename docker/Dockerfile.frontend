@@ -21,7 +21,8 @@ COPY ./apps/web ./apps/web
 RUN pnpm install
 
 RUN cd packages/db
-RUN echo "DATABASE_URL=${DATABASE_URL}" > .env && npx prisma generate && cd ../..
+RUN echo "DATABASE_URL=$DATABASE_URL" > .env
+RUN npx prisma generate && cd ../..
 
 RUN pnpm run build
 
