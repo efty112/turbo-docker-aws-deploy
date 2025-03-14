@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "build": "tsc -b",
     "dev": "pnpm run build && pnpm run start",
@@ -13,12 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/express": "^5.0.0",
     "express": "^4.21.2",
-    "typescript": "^5.8.2"
+    "db": "workspace:*"
   },
   "devDependencies": {
-    "db": "workspace:*",
+    "@types/express": "^5.0.0",
     "@repo/typescript-config": "workspace:*"
   }
 }
