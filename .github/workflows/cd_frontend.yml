@@ -19,13 +19,11 @@ jobs:
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
             
             - name: Build and push
-              env:
-                DATABASE_URL: ${{secrets.DATABASE_URL}}
               uses: docker/build-push-action@v6
               with:
                 context: .
                 file: ./docker/Dockerfile.frontend
-                build-args:
+                build-args: |
                   DATABASE_URL=${{secrets.DATABASE_URL}}
                 push: true
                 tags: efty112/test-turbo-app-frontend:${{github.sha}}
